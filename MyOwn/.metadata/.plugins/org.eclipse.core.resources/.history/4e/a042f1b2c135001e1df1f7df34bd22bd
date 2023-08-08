@@ -1,0 +1,36 @@
+package Steps;
+
+import org.openqa.selenium.WebDriver;
+
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import pages.CartPage;
+import utils.SeleniumDriver;
+import utils.SharedData;
+
+public class CartStepDefs {
+	
+	WebDriver driver;
+	SharedData sharedData;
+	CartPage cartPage = new CartPage();
+
+	public CartStepDefs(SharedData sharedDataMain)
+	{
+		sharedData = sharedDataMain;
+		driver = SeleniumDriver.getDriver();
+	}
+	
+	@Then("user is navigated to Cart page and verifies two products added")
+	public void user_is_navigated_to_cart_page_and_verifies_two_products_added() 
+	{
+		cartPage.verifyAddedProducts();
+	}
+
+	@When("user clicks on checkout button")
+	public void user_clicks_on_checkout_button() 
+	{
+	    cartPage.clickCheckout();
+	    System.out.println("");
+	}
+
+}

@@ -1,0 +1,66 @@
+package utils;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class SeleniumDriver {
+	
+private static SeleniumDriver seleniumDriver;
+	
+	//initialize the driver
+	private static WebDriver driver;
+	private static WebDriverWait webDriverWait;
+	public final static int TIMEOUT = 30;
+	public final static int PAGE_LOAD_TIMEOUT = 30;
+	
+	private SeleniumDriver(String browser)
+	{
+		if(browser == "chrome")
+		{
+			driver = new ChromeDriver();
+		}
+		else if(browser == "firefox")	
+		{
+			driver = new FirefoxDriver();
+		}
+		
+		driver.manage().window().maximize();		
+		webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
+	}
+	
+	public static void openpage(String url)
+	{
+		driver.get(url);
+	}
+	
+	public static WebDriver getDriver()
+	{
+		return driver;
+	}
+	
+	/*public static void setUpDriver()
+	{
+		if(seleniumDriver == null)
+		{
+			seleniumDriver = new SeleniumDriver();
+		}
+	}*/
+	
+	public static void tearDown()
+	{
+		if(driver != null)
+		{
+			driver.close();
+			driver.quit();
+		}
+		seleniumDriver = null;
+	}
+	
+
+}

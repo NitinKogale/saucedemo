@@ -1,0 +1,19 @@
+package pages;
+
+import static org.testng.Assert.assertTrue;
+
+import org.openqa.selenium.WebDriver;
+
+import utils.SeleniumDriver;
+
+public class CheckoutCompletePage {
+	
+WebDriver driver;
+	
+	public CheckoutCompletePage()
+	{
+		driver = SeleniumDriver.getDriver();
+		assertTrue(driver.getCurrentUrl().contains("checkout-complete"), "Expected to land on Checkout complete page");
+	}
+
+}

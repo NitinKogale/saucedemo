@@ -1,0 +1,14 @@
+Feature: Title of your feature
+  I want to use this template for my feature file
+
+  Scenario Outline: Verirfy login fuctionality
+    Given user is on saucedemo login page
+    When user enters credentials for '<user>' on login page
+    Then user should be navigated to 'inventory' page and show error message for locked user
+
+    Examples: 
+      | user                    |
+      | locked_out_user         |
+      | problem_user            |
+      | performance_glitch_user |
+      | standard_user           |

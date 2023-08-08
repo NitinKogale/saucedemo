@@ -1,0 +1,8 @@
+Feature: Place order end To end
+  I verify the placing order functionality end to end
+
+  Scenario Outline: Verirfy placing order fuctionality
+    Given user is on saucedemo login page
+    When user enters credentials for 'standard_user' on login page
+    Then user should be navigated to 'inventory' page
+

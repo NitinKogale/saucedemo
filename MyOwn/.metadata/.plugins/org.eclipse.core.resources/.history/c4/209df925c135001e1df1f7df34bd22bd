@@ -1,0 +1,16 @@
+package utils;
+
+public class SharedDataManager {
+
+	SharedData sharedData;
+	
+	public void setSharedData()
+	{
+		sharedData = new SharedData();
+	}
+	public SharedData getSharedData()
+	{
+		return sharedData;
+	}
+	
+}

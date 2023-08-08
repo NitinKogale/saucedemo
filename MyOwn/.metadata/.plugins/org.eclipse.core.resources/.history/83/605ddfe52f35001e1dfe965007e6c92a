@@ -1,0 +1,27 @@
+package runners;
+
+import java.io.File;
+import org.testng.annotations.AfterClass;
+import com.cucumber.listener.Reporter;
+import dataProvider.ConfigFileReader;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+
+@CucumberOptions(
+	features = "src/test/resources/features/LoginFeature.feature",
+	glue= {"Steps"},
+	plugin = {"pretty", "html:target/RunTests/cucumber.html","com.cucumber.listener.ExtentCucumberFormatter"},
+	tags = "@login",
+	monochrome = true
+	)
+ 
+
+public class TestRunner extends AbstractTestNGCucumberTests {
+	
+	@AfterClass
+	public static void writeExtentReport() {
+		ConfigFileReader configFileReader = new ConfigFileReader();
+		Reporter.loadXMLConfig(new File(configFileReader.getReportConfigPath()));
+	}
+}

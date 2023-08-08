@@ -1,0 +1,90 @@
+package pages;
+
+import static org.testng.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class InventoryPage {
+	
+	WebDriver driver;
+	SharedData sharedData ;
+	String pageTitile = "Swag Labs";
+	
+	public InventoryPage()
+	{
+		 sharedData = SharedDataManager.getSharedData();
+		driver = SeleniumDriver.getDriver();
+		Assert.assertEquals(driver.getTitle(), pageTitile, "User is landed on expected page");
+	}
+	
+	By inventoryPageLogo = By.xpath("//div[@class='app_logo' and text()='Swag Labs']");
+	String pageNameInUrl = "inventory.html";
+	By allProdPrices = By.xpath("//div[@class='inventory_item_price']");
+	By cartLink = By.xpath("//a[@class='shopping_cart_link']");
+	
+	public void verifyUserIsOnInvetoryPage()
+	{
+		//In ideal scenario thread sleep is not recommended. But, just to slow down view for a while, this has been added.
+		try 
+		{
+			Thread.sleep(3000);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		assertTrue(driver.findElement(inventoryPageLogo).isDisplayed(), "Unexpected page logo text");
+		assertTrue(driver.getCurrentUrl().contains(pageNameInUrl), "Inventory page url is not as expected");
+	}
+	
+	public void addTopTwoExpensiveProductsToCart()
+	{		
+		 List<WebElement> ele = driver.findElements(allProdPrices); 		 
+		 List<Float> prices = new ArrayList<Float>();
+		 
+		 for (WebElement webElement : ele) {
+
+			prices.add(Float.parseFloat((webElement.getText()).substring(1)));
+		 }
+		 
+		 Collections.sort(prices, Collections.reverseOrder());
+		 
+		 System.out.println("### first value as read from collectio " + prices.get(0));
+		 System.out.println("### second value as read from collectio " + prices.get(1));
+		 
+		 sharedData.setFirstProductVal(prices.get(0));
+		 System.out.println("^^ FirstValue Set as - "+ sharedData.getFirstProductVal());
+		 sharedData.setSecondProductVal(prices.get(1));
+		 System.out.println("^^ SecondValue Set as - "+ sharedData.getSecondProductVal());
+		 
+		 String firstProductName = driver.findElement(By.xpath("//div[text()='"+prices.get(0)+"']/preceding::div[2]")).getText();
+		 sharedData.setFirstProduct(firstProductName);
+		 System.out.println("** First product Selected is - " + sharedData.getFirstProduct() + " **");		 
+		 String secondProductName = driver.findElement(By.xpath("//div[text()='"+prices.get(1)+"']/preceding::div[2]")).getText();
+		 sharedData.setSecondProduct(secondProductName);		 
+		 System.out.println(sharedData.getFirstProductVal()+ " "+sharedData.getSecondProductVal());	
+		 
+		 SharedDataManager.updateSharedData(sharedData);
+		 
+		 driver.findElement(By.xpath("//div[text()='"+prices.get(0)+"']/following::button[1]")).click();
+		 driver.findElement(By.xpath("//div[text()='"+prices.get(1)+"']/following::button[1]")).click();
+	}
+
+	public void clickCart()
+	{
+		driver.findElement(cartLink).click();
+	}
+	
+}

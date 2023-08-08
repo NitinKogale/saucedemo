@@ -1,0 +1,66 @@
+package Steps;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import dataProvider.ConfigFileReader;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+import pages.LoginPage;
+import utils.SeleniumDriver;
+
+public class LoginStepDefs {
+
+	WebDriver driver;
+	ConfigFileReader configFileReader = new ConfigFileReader();
+	LoginPage loginPage = new LoginPage();
+	
+	public LoginStepDefs()
+	{
+		System.out.println("** Inside Step Def Construct **");
+		driver = SeleniumDriver.getDriver();
+		System.out.println("** Inside Step Def Construct after**");
+	}
+	
+	@Given("user is on saucedemo login page")
+	public void user_is_on_saucedemo_login_page() 
+	{
+		driver.get(configFileReader.getApplicationUrl());
+	}
+
+	@When("user enters {string} and {string} and login")
+	public void user_enters_and_and_login(String string, String string2) 
+	{
+		/*WebElement  userName = driver.findElement(By.id("user-name"));
+		WebElement  password = driver.findElement(By.id("password"));
+		WebElement  loginButton = driver.findElement(By.id("login-button"));
+		
+		userName.sendKeys("standard_user");
+		password.sendKeys("secret_sauce");
+		loginButton.click();*/
+		loginPage.login();
+	}
+
+	@Then("user should be navigated to {string} page")
+	public void user_should_be_navigated_to_page(String string) {
+
+		long abc = 5000;
+		try {
+			Thread.sleep(abc);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//List<WebElement> ss = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+		List<WebElement> ele = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+		String s = ele.get(1).getText();
+		s = s.substring(1);
+		
+	}
+
+}

@@ -1,0 +1,86 @@
+package Steps;
+
+import static org.testng.Assert.assertTrue;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import dataProvider.ConfigFileReader;
+import dataProvider.JsonDataReader;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import pages.InventoryPage;
+import pages.LoginPage;
+import testDataTypes.Users;
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class LoginStepDefs {
+
+	WebDriver driver;
+	ConfigFileReader configFileReader;
+	SharedData sharedData;
+	LoginPage loginPage = new LoginPage();
+	InventoryPage inventoryPage;
+	Users user;
+
+	public LoginStepDefs() 
+	{
+		sharedData = SharedDataManager.getSharedData();
+		driver = SeleniumDriver.getDriver();
+	}
+
+	@Given("user is on saucedemo login page")
+	public void user_is_on_saucedemo_login_page() 
+	{		
+		configFileReader = new ConfigFileReader();
+		driver.get(configFileReader.getApplicationUrl());
+	}
+
+	@When("user enters {string} and {string} and login")
+	public void user_enters_and_and_login(String string, String string2) 
+	{
+		loginPage.login();
+	}
+
+	@When("user enters credentials for {string} on login page")
+	public void user_enters_credentials_for_on_login_page(String userFromFeature) 
+	{
+		JsonDataReader jsonDataReader = new JsonDataReader();
+		user = jsonDataReader.getUsersByName(userFromFeature);
+		loginPage.login(user.getUsername(), user.getPassword());
+		sharedData.setFirstName(user.getFirstName());
+		sharedData.setLastName(user.getLastName());
+		sharedData.setPostalCode(user.getPostalCode());
+		SharedDataManager.updateSharedData(sharedData);
+	}
+
+	@Then("user should be navigated to {string} page and show error message for locked user")
+	public void user_should_be_navigated_to_page_and_show_error_message_for_locked_user(String string) 
+	{
+		if ((user.getUsername().equals("locked_out_user"))) 
+		{
+			loginPage.verifyErrorMessage();
+		} 
+		else 
+		{
+			inventoryPage = new InventoryPage();
+			inventoryPage.verifyUserIsOnInvetoryPage();
+		}
+
+	}
+
+	@Then("user should be navigated to {string} page")
+	public void user_should_be_navigated_to_page(String string) 
+	{
+		inventoryPage = new InventoryPage();
+		inventoryPage.verifyUserIsOnInvetoryPage();
+	}
+
+}

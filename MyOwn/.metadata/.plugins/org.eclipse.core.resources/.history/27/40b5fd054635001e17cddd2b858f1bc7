@@ -1,0 +1,4 @@
+url=https://www.saucedemo.com/
+browser=firefox
+testDataResourcePath=src/test/resources/testDataResources/
+reportConfigPath=E:/Ejada/MyOwn/Saucedemo/configs/extent-config.xml

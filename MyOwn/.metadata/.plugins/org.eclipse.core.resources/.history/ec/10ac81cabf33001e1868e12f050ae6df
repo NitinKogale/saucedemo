@@ -1,0 +1,13 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class LoginPage {
+	
+	
+
+	WebElement userName = driver.findElement(By.id("user-name"));
+	WebElement password = driver.findElement(By.id("password"));
+	WebElement loginButton = driver.findElement(By.id("login-button"));
+}

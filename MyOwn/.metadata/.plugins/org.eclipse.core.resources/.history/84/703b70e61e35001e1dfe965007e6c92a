@@ -1,0 +1,25 @@
+package runners;
+
+import java.io.File;
+import org.testng.annotations.AfterClass;
+import com.cucumber.listener.Reporter;
+import dataProvider.ConfigFileReader;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(
+	features = "src/test/resources/features",
+	glue= {"Steps"},
+	plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"},
+	tags = "@login",
+	monochrome = true
+	)
+ 
+
+public class TestRunner {
+	
+	@AfterClass
+	public static void writeExtentReport() {
+		ConfigFileReader configFileReader = new ConfigFileReader();
+		Reporter.loadXMLConfig(new File(configFileReader.getReportConfigPath()));
+	}
+}

@@ -1,0 +1,58 @@
+package Steps;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import dataProvider.ConfigFileReader;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import utils.SeleniumDriver;
+
+public class Hooks {
+	
+	WebDriver driver;
+	WebDriverWait webDriverWait;
+	ConfigFileReader configFileReader;
+	public final static int TIMEOUT = 30;
+	public final static int PAGE_LOAD_TIMEOUT = 30;
+
+	@Before
+	public void startBrowser()
+	{
+		System.out.println("**Nitin in before method **");
+		
+		configFileReader = new ConfigFileReader();
+		
+		if((configFileReader.getBrowser()).equals("chrome"))
+		{
+			driver = new ChromeDriver();
+		}
+		else if((configFileReader.getBrowser()).equals("firefox"))
+		{
+			driver = new FirefoxDriver();
+		}		
+		
+		driver.manage().window().maximize();		
+		webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
+		
+		System.out.println("**Nitin launched browser in before method **");
+		
+		SeleniumDriver.setDriver(driver);
+		
+		System.out.println("**Nitin set the browser in before method **");
+	}
+	
+	@After
+	public void tearDown()
+	{
+		System.out.println("**Nitin in after method **");
+		driver.close();
+		driver.quit();
+	}
+}

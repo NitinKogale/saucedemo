@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+<fullyQualifiedTypeName name="org.testng.annotations.DataProvider"/>
+<fullyQualifiedTypeName name="io.cucumber.picocontainer.PicoFactory"/>
+<fullyQualifiedTypeName name="Steps.SharedData"/>
+<fullyQualifiedTypeName name="utils.SeleniumDriver"/>
+<fullyQualifiedTypeName name="java.time.Duration"/>
+<fullyQualifiedTypeName name="dataProvider.JsonDataReader"/>
+<fullyQualifiedTypeName name="testDataTypes.Users"/>
+<fullyQualifiedTypeName name="dev.failsafe.internal.util.Assert"/>
+<fullyQualifiedTypeName name="org.testng.Assert"/>
+<fullyQualifiedTypeName name="dataProvider.ConfigFileReader"/>
+<fullyQualifiedTypeName name="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+<fullyQualifiedTypeName name="org.testng.annotations.BeforeMethod"/>
+<fullyQualifiedTypeName name="io.cucumber.java.After"/>
+<fullyQualifiedTypeName name="pages.CheckoutCompletePage"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="pages.CartPage"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
+<fullyQualifiedTypeName name="pages.InventoryPage"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.By"/>
+<fullyQualifiedTypeName name="sun.jvm.hotspot.debugger.win32.coff.TestDebugInfo"/>
+<fullyQualifiedTypeName name="pages.CheckoutPage"/>
+<fullyQualifiedTypeName name="java.lang.Float"/>
+<fullyQualifiedTypeName name="utils.SharedData"/>
+<fullyQualifiedTypeName name="utils.SharedDataManager"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,16 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+
+import utils.SeleniumDriver;
+
+public class CheckoutCompletePage {
+	
+WebDriver driver;
+	
+	public CheckoutCompletePage()
+	{
+		driver = SeleniumDriver.getDriver();
+	}
+
+}

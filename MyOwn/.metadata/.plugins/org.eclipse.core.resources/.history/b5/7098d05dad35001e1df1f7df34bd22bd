@@ -1,0 +1,40 @@
+package utils;
+
+public class SharedData {
+
+	public String firstProduct;
+	public String secondProduct;
+	public float firstProductVal;
+	public float secondProductVal;
+	
+	public void setFirstProductVal(float fpv)
+	{
+		this.firstProductVal = fpv;
+	}
+	
+	public float getFirstProductVal()
+	{
+		return this.firstProductVal;
+	}
+	
+	public void setSecondProductVal(float spv)
+	{
+		this.firstProductVal = spv;
+	}
+	
+	public float getSecondProductVal()
+	{
+		return this.secondProductVal;
+	}
+	
+	public void setSecondProduct(String secondProdName)
+	{
+		this.secondProduct = secondProdName;
+	}
+	
+	public String getsecondProductVal()
+	{
+		return this.secondProduct;
+	}
+	
+}

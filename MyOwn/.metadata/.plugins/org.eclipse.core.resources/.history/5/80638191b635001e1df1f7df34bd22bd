@@ -1,0 +1,4 @@
+url=https://www.saucedemo.com/
+browser=chrome
+testDataResourcePath=src/test/resources/testDataResources/
+reportConfigPath=configs/extent-config.xml

@@ -1,0 +1,85 @@
+package pages;
+
+import static org.testng.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import utils.SeleniumDriver;
+
+public class InventoryPage {
+	
+	WebDriver driver;
+	String pageTitile = "Swag Labs";
+	
+	public InventoryPage()
+	{
+		driver = SeleniumDriver.getDriver();
+		Assert.assertEquals(driver.getTitle(), pageTitile, "User is landed on expected page");
+	}
+	
+	By inventoryPageLogo = By.xpath("//div[@class='app_logo' and text()='Swag Labs']");
+	String pageNameInUrl = "inventory.html";
+	By allProdPrices = By.xpath("//div[@class='inventory_item_price']");
+	
+	public void verifyUserIsOnInvetoryPage()
+	{
+		try 
+		{
+			Thread.sleep(3000);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		assertTrue(driver.findElement(inventoryPageLogo).isDisplayed(), "Unexpected page logo text");
+		assertTrue(driver.getCurrentUrl().contains(pageNameInUrl), "Inventory page url is not as expected");
+	}
+	
+	public void addTopTwoExpensiveProductsToCart()
+	{		
+		 List<WebElement> ele = driver.findElements(allProdPrices); 
+		 
+		 List<Float> prices = new ArrayList<Float>();
+		 
+		 for (WebElement webElement : ele) {
+			 
+			float val = Float.parseFloat((webElement.getText()).substring(1));
+			prices.add(val);
+			//System.out.println(val);
+		 }
+		 
+		 for(int i=0; i<prices.size(); i++)
+		 {
+			 System.out.println(prices.get(i));
+		 }
+		 
+		 System.out.println("After sort");
+		 
+		 //Collections.sort(prices);
+		 
+		 System.out.println("On reverse");
+		 
+		 Collections.reverse(prices);
+		 
+		 for(int i=0; i<prices.size(); i++)
+		 {
+			 System.out.println(prices.get(i));
+		 }
+		 
+		 /*String s = ele.get(1).getText(); 
+		 s = s.substring(1);
+		 float priceInFloat = Float.parseFloat(s);
+		 System.out.println("index 1value in list #### - " + s);
+		 System.out.println("Flaot value -- " + priceInFloat);*/
+		 System.out.println("");
+	}
+
+}

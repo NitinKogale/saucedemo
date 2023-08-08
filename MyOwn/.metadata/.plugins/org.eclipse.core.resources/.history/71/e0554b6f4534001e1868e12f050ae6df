@@ -1,0 +1,42 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+
+import utils.SeleniumDriver;
+
+public class LoginPage {
+	
+	WebDriver driver;
+	WebElement  userName;
+	WebElement  password;
+	WebElement  loginButton;
+	public LoginPage()
+	{
+		//System.out.println("*****Before Condtruct" + driver.getTitle());
+		driver = SeleniumDriver.getDriver();
+		if(driver == null)
+		{System.out.println("*****Null***" + driver.getTitle());}
+		else
+		{System.out.println("*** Driver Not null**");}
+		
+	}
+	
+	public void setVariable()
+	{
+	  userName = driver.findElement(By.id("user-name"));
+	  password = driver.findElement(By.id("password"));
+	  loginButton = driver.findElement(By.id("login-button"));
+	}
+	public void login() 
+	{
+		setVariable();
+		userName.sendKeys("standard_user");
+		password.sendKeys("secret_sauce");
+		loginButton.click();
+	}
+
+	
+}

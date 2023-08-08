@@ -1,0 +1,39 @@
+package Steps;
+
+import org.openqa.selenium.WebDriver;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import pages.OverviewPage;
+import utils.SeleniumDriver;
+
+public class OverviewStepDefs {
+
+	WebDriver driver;
+	OverviewPage overviewPage = new OverviewPage();
+
+	public OverviewStepDefs()
+	{
+		driver = SeleniumDriver.getDriver();
+	}
+	
+	@Then("user is navigated to Overview page and verifies the total amount before tax")
+	public void user_is_navigated_to_overview_page_and_verifies_the_total_amount_before_tax() 
+	{
+	    //overviewPage.veriryOrderSuccessful();
+	}
+
+	@And("user verfies the url of Overview page")
+	public void user_verfies_the_url_of_overview_page() 
+	{
+	    
+	}
+
+	@When("user clicks on Finish button")
+	public void user_clicks_on_finish_button() 
+	{
+	    
+	}
+	
+}

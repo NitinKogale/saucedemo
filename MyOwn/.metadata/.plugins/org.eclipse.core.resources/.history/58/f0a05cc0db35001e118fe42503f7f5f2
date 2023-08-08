@@ -1,0 +1,52 @@
+package pages;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class OverviewPage {
+
+	WebDriver driver;
+	SharedData sharedData;
+	
+	public OverviewPage()
+	{
+		sharedData = SharedDataManager.getSharedData();
+		driver = SeleniumDriver.getDriver();
+		assertTrue((driver.getCurrentUrl()).contains("checkout-step-two.html"), "Expected to land on Checkout two page");
+	}
+	
+	By totalAmountBeforeTaxDiv = By.xpath("//div[@class='summary_subtotal_label']");
+	String overviewPageUrl = "";
+	By finishButton = By.id("finish");
+	
+	public void verifyTotalAmountBeforetax()
+	{
+		String amountText = (driver.findElement(totalAmountBeforeTaxDiv)).getText();		
+		int indextOfDollar = amountText.indexOf("$");
+		String amount = ((driver.findElement(totalAmountBeforeTaxDiv)).getText()).substring(indextOfDollar+1);		
+		float amountFloat = Float.parseFloat(amount);
+		
+		float sumOfProducts = (float)sharedData.getFirstProductVal()+(float)sharedData.getSecondProductVal();
+		assertEquals(amountFloat, sumOfProducts, "Checkout step page: Amot total calculation before tax is incorrect");
+	}
+	
+	public void verifyOverviewPageUrl()
+	{
+		String currentUrl = driver.getCurrentUrl();
+		System.out.println("** Overview page url " + currentUrl + " **");
+		//assert
+	}
+	
+	public void clickFinishButton()
+	{
+		driver.findElement(finishButton).click();
+	}
+	
+}

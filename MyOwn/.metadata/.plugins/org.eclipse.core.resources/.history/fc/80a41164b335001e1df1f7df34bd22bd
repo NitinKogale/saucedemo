@@ -1,0 +1,21 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+
+import utils.SeleniumDriver;
+import utils.SharedData;
+
+public class CartPage {
+	
+	WebDriver driver;
+	SharedData sharedData = new SharedData();
+	String pageTitile = "Swag Labs";
+	
+	public CartPage()
+	{
+		driver = SeleniumDriver.getDriver();
+		Assert.assertTrue((driver.getCurrentUrl().contains("cart.html")), "User is not landed on expected page. Should be on Cart page");
+	}
+	
+}

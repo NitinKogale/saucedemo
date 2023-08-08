@@ -1,0 +1,7 @@
+Feature: Title of your feature
+  I want to use this template for my feature file
+
+Scenario: Verirfy login fuctionality
+Given user is on saucedemo login page
+When user enters 'validUserName' and 'validPassword' and login
+Then user should be navigated to 'inventory' page

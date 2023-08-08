@@ -1,0 +1,82 @@
+package pages;
+
+import static org.testng.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class InventoryPage {
+	
+	WebDriver driver;
+	SharedData sharedData ;
+	String pageTitile = "Swag Labs";
+	
+	public InventoryPage()
+	{
+		 sharedData = SharedDataManager.getSharedData();
+		driver = SeleniumDriver.getDriver();
+		Assert.assertEquals(driver.getTitle(), pageTitile, "User is landed on expected page");
+	}
+	
+	By inventoryPageLogo = By.xpath("//div[@class='app_logo' and text()='Swag Labs']");
+	String pageNameInUrl = "inventory.html";
+	By allProdPrices = By.xpath("//div[@class='inventory_item_price']");
+	By cartLink = By.xpath("//a[@class='shopping_cart_link']");
+	
+	public void verifyUserIsOnInvetoryPage()
+	{
+		try 
+		{
+			Thread.sleep(3000);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		assertTrue(driver.findElement(inventoryPageLogo).isDisplayed(), "Unexpected page logo text");
+		assertTrue(driver.getCurrentUrl().contains(pageNameInUrl), "Inventory page url is not as expected");
+	}
+	
+	public void addTopTwoExpensiveProductsToCart()
+	{		
+		 List<WebElement> ele = driver.findElements(allProdPrices); 		 
+		 List<Float> prices = new ArrayList<Float>();		 
+		 for (WebElement webElement : ele) {
+
+			prices.add(Float.parseFloat((webElement.getText()).substring(1)));
+		 }		 
+		 Collections.sort(prices, Collections.reverseOrder());
+		 
+		 driver.findElement(By.xpath("//div[text()='"+prices.get(0)+"']/following::button[1]")).click();
+		 sharedData.setFirstProductVal(prices.get(0));
+		 String firstProductName = driver.findElement(By.xpath("//div[text()='"+prices.get(0)+"']/preceding::div[2]")).getText();
+		 sharedData.setFirstProduct(firstProductName);
+		 System.out.println("** First product Selected is - " + sharedData.getFirstProduct() + " **");
+		 
+		 driver.findElement(By.xpath("//div[text()='"+prices.get(1)+"']/following::button[1]")).click();
+		 sharedData.setSecondProductVal(prices.get(1));
+		 String secondProductName = driver.findElement(By.xpath("//div[text()='"+prices.get(1)+"']/preceding::div[2]")).getText();
+
+		 sharedData.setSecondProduct(secondProductName);
+		 System.out.println("** Second product Selected is - " + secondProductName + " **");
+		 
+		 SharedDataManager.updateSharedData(sharedData);
+	}
+
+	public void clickCart()
+	{
+		driver.findElement(cartLink).click();
+	}
+	
+}

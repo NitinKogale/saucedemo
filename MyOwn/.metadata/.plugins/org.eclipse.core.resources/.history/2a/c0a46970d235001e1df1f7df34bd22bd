@@ -1,0 +1,41 @@
+package pages;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class OverviewPage {
+
+	WebDriver driver;
+	SharedData sharedData;
+	
+	public OverviewPage()
+	{
+		sharedData = SharedDataManager.getSharedData();
+		driver = SeleniumDriver.getDriver();
+		assertTrue((driver.getCurrentUrl()).contains("checkout-step-two.html"), "Expected to land on Checkout two page");
+	}
+	
+	By totalAmountBeforeTaxDiv = By.xpath("summary_subtotal_label");
+	
+	public void verifyTotalAmountBeforetax()
+	{
+		String amountText = driver.findElement(totalAmountBeforeTaxDiv).getText();
+		int indextOfDollar = amountText.indexOf("$");
+		amountText = amountText.substring(indextOfDollar);
+		System.out.println("** tatal as read from page - " + amountText);
+		float amount = Float.parseFloat(amountText);
+		System.out.println("** flaot val - " + amount);
+		
+		float sumOfProducts = sharedData.getFirstProductVal() + sharedData.getSecondProductVal();
+		System.out.println("** Calculated sum of prods " + sumOfProducts);
+		System.out.println("");
+	}
+	
+}

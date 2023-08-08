@@ -1,0 +1,22 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+
+import utils.SeleniumDriver;
+import utils.SharedData;
+import utils.SharedDataManager;
+
+public class CheckoutPage {
+
+	WebDriver driver;
+
+	
+	public CheckoutPage()
+	{
+		driver = SeleniumDriver.getDriver();
+		Assert.assertTrue((driver.getCurrentUrl().contains("checkout-step-one.html")), "User is not landed on expected page. Should be on checkout one page");
+	}
+	
+	
+}
